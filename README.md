@@ -182,3 +182,4 @@ For issues or questions:
 1. Check [QUICK_START.md](./QUICK_START.md)
 2. Review [SETUP_GUIDE.md](../SETUP_GUIDE.md)
 3. Check Supabase docs: https://supabase.com/docs
+
