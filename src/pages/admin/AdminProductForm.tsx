@@ -4,7 +4,7 @@ import { motion } from 'framer-motion';
 import { ArrowLeft, Save, Loader2, AlertCircle, Plus, X, Image } from 'lucide-react';
 import { productService } from '../../services/productService';
 import { categoryService } from '../../services/categoryService';
-import type { Product, Category } from '../../types';
+import type { Category } from '../../types';
 import { supabase } from '../../lib/supabase';
 
 export default function AdminProductForm() {
@@ -145,11 +145,6 @@ export default function AdminProductForm() {
     setSaving(true);
 
     try {
-      const productData = {
-        ...formData,
-        images,
-      };
-
       if (isEditing) {
         // Update product
         await supabase

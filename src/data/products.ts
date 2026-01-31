@@ -5,7 +5,7 @@ export const products: Product[] = [
     id: 'p1',
     name: 'Gold Premium Zipper 10"',
     slug: 'gold-premium-zipper-10',
-    category: 'luxury-zipper',
+    category_id: 'luxury-zipper',
     description: 'Elegant gold-plated zipper perfect for luxury handbags and designer apparel.',
     images: [
       'https://images.unsplash.com/photo-1558171813-4c088753af8f?q=80&w=600&auto=format&fit=crop',
@@ -26,7 +26,7 @@ export const products: Product[] = [
     id: 'p2',
     name: 'Silver Diamond Zipper 12"',
     slug: 'silver-diamond-zipper-12',
-    category: 'luxury-zipper',
+    category_id: 'luxury-zipper',
     description: 'Crystal-studded silver zipper for haute couture and bridal wear.',
     images: [
       'https://images.unsplash.com/photo-1594938298603-c8148c4dae35?q=80&w=600&auto=format&fit=crop',
@@ -47,7 +47,7 @@ export const products: Product[] = [
     id: 'p3',
     name: 'Heavy Duty Metal Zipper 8"',
     slug: 'heavy-duty-metal-8',
-    category: 'metal-zipper',
+    category_id: 'metal-zipper',
     description: 'Industrial-strength metal zipper for leather jackets and bags.',
     images: [
       'https://images.unsplash.com/photo-1591047139829-d91aecb6caea?q=80&w=600&auto=format&fit=crop',
@@ -68,7 +68,7 @@ export const products: Product[] = [
     id: 'p4',
     name: 'Gunmetal Zipper 14"',
     slug: 'gunmetal-zipper-14',
-    category: 'metal-zipper',
+    category_id: 'metal-zipper',
     description: 'Modern gunmetal finish zipper for contemporary fashion.',
     images: [
       'https://images.unsplash.com/photo-1591047139829-d91aecb6caea?q=80&w=600&auto=format&fit=crop',
@@ -88,7 +88,7 @@ export const products: Product[] = [
     id: 'p5',
     name: 'Nylon Coil Zipper 6"',
     slug: 'nylon-coil-6',
-    category: 'nylon-coil',
+    category_id: 'nylon-coil',
     description: 'Smooth-operating nylon zipper for everyday garments.',
     images: [
       'https://images.unsplash.com/photo-1556905055-8f358a7a47b2?q=80&w=600&auto=format&fit=crop',
@@ -108,7 +108,7 @@ export const products: Product[] = [
     id: 'p6',
     name: 'Colored Nylon Zipper 10"',
     slug: 'colored-nylon-10',
-    category: 'nylon-coil',
+    category_id: 'nylon-coil',
     description: 'Available in 50+ colors to match any fabric.',
     images: [
       'https://images.unsplash.com/photo-1558171813-4c088753af8f?q=80&w=600&auto=format&fit=crop',
@@ -129,7 +129,7 @@ export const products: Product[] = [
     id: 'p7',
     name: 'Plastic Molded Zipper 5"',
     slug: 'plastic-molded-5',
-    category: 'plastic-molded',
+    category_id: 'plastic-molded',
     description: 'Economical plastic zipper for sportswear and casual clothing.',
     images: [
       'https://images.unsplash.com/photo-1594938298603-c8148c4dae35?q=80&w=600&auto=format&fit=crop',
@@ -149,7 +149,7 @@ export const products: Product[] = [
     id: 'p8',
     name: 'Two-Way Plastic Zipper 20"',
     slug: 'two-way-plastic-20',
-    category: 'plastic-molded',
+    category_id: 'plastic-molded',
     description: 'Two-way separating zipper for jackets and outerwear.',
     images: [
       'https://images.unsplash.com/photo-1578681994506-b8f463449011?q=80&w=600&auto=format&fit=crop',
@@ -169,7 +169,7 @@ export const products: Product[] = [
     id: 'p9',
     name: 'Invisible Zipper 7"',
     slug: 'invisible-zipper-7',
-    category: 'invisible-zipper',
+    category_id: 'invisible-zipper',
     description: 'Concealed zipper for a seamless finish on dresses and skirts.',
     images: [
       'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?q=80&w=600&auto=format&fit=crop',
@@ -189,7 +189,7 @@ export const products: Product[] = [
     id: 'p10',
     name: 'Invisible Zipper 22"',
     slug: 'invisible-zipper-22',
-    category: 'invisible-zipper',
+    category_id: 'invisible-zipper',
     description: 'Long invisible zipper for gowns and formal wear.',
     images: [
       'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?q=80&w=600&auto=format&fit=crop',
@@ -209,7 +209,7 @@ export const products: Product[] = [
     id: 'p11',
     name: 'Waterproof Zipper 12"',
     slug: 'waterproof-zipper-12',
-    category: 'special-zipper',
+    category_id: 'special-zipper',
     description: 'Fully waterproof zipper for outdoor gear and marine applications.',
     images: [
       'https://images.unsplash.com/photo-1578681994506-b8f463449011?q=80&w=600&auto=format&fit=crop',
@@ -229,7 +229,7 @@ export const products: Product[] = [
     id: 'p12',
     name: 'Fire Resistant Zipper 10"',
     slug: 'fire-resistant-zipper-10',
-    category: 'special-zipper',
+    category_id: 'special-zipper',
     description: 'Fire-resistant zipper for safety gear and industrial uniforms.',
     images: [
       'https://images.unsplash.com/photo-1591047139829-d91aecb6caea?q=80&w=600&auto=format&fit=crop',
@@ -248,7 +248,7 @@ export const products: Product[] = [
 ];
 
 export const getProductsByCategory = (categorySlug: string): Product[] => {
-  return products.filter((p) => p.category === categorySlug);
+  return products.filter((p) => p.category_id === categorySlug);
 };
 
 export const getProductBySlug = (slug: string): Product | undefined => {
