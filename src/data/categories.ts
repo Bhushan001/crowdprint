@@ -1,0 +1,58 @@
+import type { Category } from '../types';
+
+export const categories: Category[] = [
+  {
+    id: '1',
+    name: 'Luxury Zipper',
+    slug: 'luxury-zipper',
+    description: 'Premium luxury zippers for high-end fashion and designer brands',
+    image: 'https://images.unsplash.com/photo-1558171813-4c088753af8f?q=80&w=500&auto=format&fit=crop',
+    order: 1,
+    featured: true,
+  },
+  {
+    id: '2',
+    name: 'Metal Zipper',
+    slug: 'metal-zipper',
+    description: 'Durable metal zippers for bags, jackets, and heavy-duty applications',
+    image: 'https://images.unsplash.com/photo-1591047139829-d91aecb6caea?q=80&w=500&auto=format&fit=crop',
+    order: 2,
+    featured: true,
+  },
+  {
+    id: '3',
+    name: 'Nylon Coil',
+    slug: 'nylon-coil',
+    description: 'Lightweight and flexible nylon coil zippers for everyday use',
+    image: 'https://images.unsplash.com/photo-1556905055-8f358a7a47b2?q=80&w=500&auto=format&fit=crop',
+    order: 3,
+    featured: true,
+  },
+  {
+    id: '4',
+    name: 'Plastic Molded',
+    slug: 'plastic-molded',
+    description: 'Versatile plastic molded zippers for various applications',
+    image: 'https://images.unsplash.com/photo-1594938298603-c8148c4dae35?q=80&w=500&auto=format&fit=crop',
+    order: 4,
+    featured: true,
+  },
+  {
+    id: '5',
+    name: 'Invisible Zipper',
+    slug: 'invisible-zipper',
+    description: 'Concealed zippers for dresses, skirts, and seamless designs',
+    image: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?q=80&w=500&auto=format&fit=crop',
+    order: 5,
+    featured: true,
+  },
+  {
+    id: '6',
+    name: 'Special Zipper',
+    slug: 'special-zipper',
+    description: 'Waterproof, fire-resistant, and specialty zippers',
+    image: 'https://images.unsplash.com/photo-1578681994506-b8f463449011?q=80&w=500&auto=format&fit=crop',
+    order: 6,
+    featured: true,
+  },
+];
