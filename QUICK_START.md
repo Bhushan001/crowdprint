@@ -120,6 +120,14 @@ CREATE TRIGGER update_products_updated_at
 
 4. Click **Run** (you should see "Success. No rows returned")
 
+### 1.3b Add Subcategories (Category → Subcategory → Product)
+
+To use the three-level hierarchy (Categories → Subcategories → Products), run the migration:
+
+1. In **SQL Editor**, open the file `supabase-migrations/002_subcategories.sql` in this project (or copy its contents).
+2. Run the SQL. This creates the `subcategories` table, adds `subcategory_id` to products, and creates one default subcategory "All" per category and assigns existing products to it.
+3. After this, you can add more subcategories in Admin → Subcategories.
+
 ### 1.4 Add Sample Data (Optional)
 
 Run this SQL to add sample categories and products:

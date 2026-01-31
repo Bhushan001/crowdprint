@@ -2,13 +2,13 @@ import { useParams, Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Loader2 } from 'lucide-react';
 import { useCategory } from '../hooks/useCategories';
-import { useProductsByCategory } from '../hooks/useProducts';
-import ProductCard from '../components/ui/ProductCard';
+import { useSubcategoriesByCategory } from '../hooks/useSubcategories';
+import SubcategoryCard from '../components/ui/SubcategoryCard';
 
 export default function CategoryPage() {
   const { categorySlug } = useParams<{ categorySlug: string }>();
   const { category, loading: categoryLoading, error: categoryError } = useCategory(categorySlug || '');
-  const { products, loading: productsLoading, error: productsError } = useProductsByCategory(category?.id || '');
+  const { subcategories, loading: subcategoriesLoading, error: subcategoriesError } = useSubcategoriesByCategory(category?.id || '');
 
   if (categoryError) {
     return (
@@ -66,25 +66,30 @@ export default function CategoryPage() {
           </p>
         </motion.div>
 
-        {productsError ? (
+        {subcategoriesError ? (
           <div className="text-center py-16 text-red-600">
-            <p className="mb-4">Error loading products. Please try again later.</p>
+            <p className="mb-4">Error loading subcategories. Please try again later.</p>
           </div>
-        ) : productsLoading ? (
+        ) : subcategoriesLoading ? (
           <div className="flex justify-center items-center py-12">
             <Loader2 className="w-8 h-8 animate-spin text-primary-600" />
           </div>
-        ) : products.length === 0 ? (
+        ) : subcategories.length === 0 ? (
           <div className="text-center py-16">
-            <p className="text-gray-600 mb-4">No products in this category yet.</p>
+            <p className="text-gray-600 mb-4">No subcategories in this category yet.</p>
             <Link to="/products" className="btn-primary">
               View All Products
             </Link>
           </div>
         ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
-            {products.map((product, index) => (
-              <ProductCard key={product.id} product={product} index={index} />
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+            {subcategories.map((subcategory, index) => (
+              <SubcategoryCard
+                key={subcategory.id}
+                subcategory={subcategory}
+                categorySlug={category.slug}
+                index={index}
+              />
             ))}
           </div>
         )}

@@ -86,7 +86,7 @@ export default function AboutPage() {
         </motion.div>
 
         <div className="mt-12 text-center">
-          <Link to="/zipper-collection" className="btn-primary">
+          <Link to="/products" className="btn-primary">
             View Our Collection
           </Link>
         </div>

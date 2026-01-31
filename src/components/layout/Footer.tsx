@@ -40,7 +40,7 @@ export default function Footer() {
             <ul className="space-y-3">
               {[
                 { name: 'Home', path: '/' },
-                { name: 'Collection', path: '/zipper-collection' },
+                { name: 'Products', path: '/products' },
                 { name: 'About Us', path: '/about' },
                 { name: 'Contact', path: '/contact' },
               ].map((link) => (
@@ -77,7 +77,7 @@ export default function Footer() {
               ].map((cat) => (
                 <li key={cat.slug}>
                   <Link
-                    to={`/zipper-collection/${cat.slug}`}
+                    to={`/products/${cat.slug}`}
                     className="text-gray-400 hover:text-primary-400 transition-colors font-medium"
                   >
                     {cat.name}

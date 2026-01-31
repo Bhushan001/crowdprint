@@ -2,6 +2,7 @@ import { Outlet, NavLink, useNavigate } from 'react-router-dom';
 import { 
   LayoutDashboard, 
   FolderOpen, 
+  Layers, 
   Package, 
   LogOut, 
   Menu,
@@ -14,6 +15,7 @@ import { useAuth } from '../../hooks/useAuth';
 const navItems = [
   { name: 'Dashboard', path: '/admin', icon: LayoutDashboard },
   { name: 'Categories', path: '/admin/categories', icon: FolderOpen },
+  { name: 'Subcategories', path: '/admin/subcategories', icon: Layers },
   { name: 'Products', path: '/admin/products', icon: Package },
 ];
 

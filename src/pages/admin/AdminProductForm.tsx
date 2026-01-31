@@ -4,7 +4,8 @@ import { motion } from 'framer-motion';
 import { ArrowLeft, Save, Loader2, AlertCircle, Plus, X, Image } from 'lucide-react';
 import { productService } from '../../services/productService';
 import { categoryService } from '../../services/categoryService';
-import type { Category } from '../../types';
+import { subcategoryService } from '../../services/subcategoryService';
+import type { Category, Subcategory } from '../../types';
 import { supabase } from '../../lib/supabase';
 
 export default function AdminProductForm() {
@@ -16,11 +17,13 @@ export default function AdminProductForm() {
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState('');
   const [categories, setCategories] = useState<Category[]>([]);
+  const [subcategories, setSubcategories] = useState<Subcategory[]>([]);
 
   const [formData, setFormData] = useState({
     name: '',
     slug: '',
     category_id: '',
+    subcategory_id: '' as string | null,
     description: '',
     specifications: {} as Record<string, string>,
     tags: [] as string[],
@@ -35,45 +38,55 @@ export default function AdminProductForm() {
   const [newTag, setNewTag] = useState('');
 
   useEffect(() => {
-    // Load categories
     categoryService.getAll().then(setCategories).catch(console.error);
+  }, []);
 
-    // Load product if editing
+  useEffect(() => {
+    if (formData.category_id) {
+      subcategoryService.getByCategoryId(formData.category_id).then(setSubcategories).catch(() => setSubcategories([]));
+    } else {
+      setSubcategories([]);
+    }
+  }, [formData.category_id]);
+
+  useEffect(() => {
     if (isEditing) {
       setLoading(true);
       productService.getBySlug(id)
         .then(async (product) => {
           if (product) {
-            setFormData({
+            setFormData(prev => ({
+              ...prev,
               name: product.name,
               slug: product.slug,
               category_id: product.category_id,
+              subcategory_id: product.subcategory_id || null,
               description: product.description || '',
               specifications: product.specifications || {},
               tags: product.tags || [],
               featured: product.featured ?? false,
               order: product.order,
-            });
+            }));
             setImages(product.images || []);
           } else {
-            // Try fetching by ID instead
             const { data } = await supabase
               .from('products')
               .select('*, product_images(image_url, order)')
               .eq('id', id)
               .single();
-            
             if (data) {
-              setFormData({
+              setFormData(prev => ({
+                ...prev,
                 name: data.name,
                 slug: data.slug,
                 category_id: data.category_id,
+                subcategory_id: data.subcategory_id || null,
                 description: data.description || '',
                 specifications: data.specifications || {},
                 tags: data.tags || [],
                 featured: data.featured ?? false,
                 order: data.order,
-              });
+              }));
               setImages(data.product_images?.map((img: any) => img.image_url) || []);
             }
           }
@@ -153,6 +166,7 @@ export default function AdminProductForm() {
             name: formData.name,
             slug: formData.slug,
             category_id: formData.category_id,
+            subcategory_id: formData.subcategory_id || null,
             description: formData.description,
             specifications: formData.specifications,
             tags: formData.tags,
@@ -180,6 +194,7 @@ export default function AdminProductForm() {
             name: formData.name,
             slug: formData.slug,
             category_id: formData.category_id,
+            subcategory_id: formData.subcategory_id || null,
             description: formData.description,
             specifications: formData.specifications,
             tags: formData.tags,
@@ -288,7 +303,7 @@ export default function AdminProductForm() {
                 </label>
                 <select
                   value={formData.category_id}
-                  onChange={(e) => setFormData({ ...formData, category_id: e.target.value })}
+                  onChange={(e) => setFormData({ ...formData, category_id: e.target.value, subcategory_id: null })}
                   required
                   className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
                 >
@@ -296,6 +311,25 @@ export default function AdminProductForm() {
                   {categories.map((category) => (
                     <option key={category.id} value={category.id}>
                       {category.name}
+                    </option>
+                  ))}
+                </select>
+              </div>
+
+              {/* Subcategory */}
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  Subcategory
+                </label>
+                <select
+                  value={formData.subcategory_id || ''}
+                  onChange={(e) => setFormData({ ...formData, subcategory_id: e.target.value || null })}
+                  className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
+                >
+                  <option value="">None / All</option>
+                  {subcategories.map((sub) => (
+                    <option key={sub.id} value={sub.id}>
+                      {sub.name}
                     </option>
                   ))}
                 </select>

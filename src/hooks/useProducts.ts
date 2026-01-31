@@ -56,6 +56,34 @@ export function useProductsByCategory(categoryId: string) {
   return { products, loading, error };
 }
 
+export function useProductsBySubcategory(subcategoryId: string) {
+  const [products, setProducts] = useState<Product[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<Error | null>(null);
+
+  useEffect(() => {
+    async function fetchProducts() {
+      try {
+        setLoading(true);
+        const data = await productService.getBySubcategory(subcategoryId);
+        setProducts(data);
+        setError(null);
+      } catch (err) {
+        setError(err as Error);
+        console.error('Failed to fetch products:', err);
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    if (subcategoryId) {
+      fetchProducts();
+    }
+  }, [subcategoryId]);
+
+  return { products, loading, error };
+}
+
 export function useProduct(slug: string) {
   const [product, setProduct] = useState<Product | null>(null);
   const [loading, setLoading] = useState(true);

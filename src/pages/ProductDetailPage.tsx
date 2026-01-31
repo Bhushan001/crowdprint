@@ -4,12 +4,14 @@ import { ChevronRight, Check, ShoppingBag, Share2, Loader2 } from 'lucide-react'
 import { motion } from 'framer-motion';
 import { useProduct } from '../hooks/useProducts';
 import { useCategoryById } from '../hooks/useCategories';
+import { useSubcategoryById } from '../hooks/useSubcategories';
 
 export default function ProductDetailPage() {
   const { productSlug } = useParams<{ productSlug: string }>();
   const navigate = useNavigate();
   const { product, loading, error } = useProduct(productSlug || '');
   const { category } = useCategoryById(product?.category_id || '');
+  const { subcategory } = useSubcategoryById(product?.subcategory_id || '');
   const [activeImage, setActiveImage] = useState(0);
 
   const handleQuoteClick = () => {
@@ -72,6 +74,17 @@ export default function ProductDetailPage() {
                 className="hover:text-primary-600 transition-colors"
               >
                 {category.name}
+              </Link>
+            </>
+          )}
+          {subcategory && category && (
+            <>
+              <ChevronRight size={14} />
+              <Link
+                to={`/products/${category.slug}/${subcategory.slug}`}
+                className="hover:text-primary-600 transition-colors"
+              >
+                {subcategory.name}
               </Link>
             </>
           )}

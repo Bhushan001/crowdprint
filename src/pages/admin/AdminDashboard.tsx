@@ -1,17 +1,18 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { FolderOpen, Package, Plus, ArrowRight, Loader2 } from 'lucide-react';
+import { FolderOpen, Layers, Package, Plus, ArrowRight, Loader2 } from 'lucide-react';
 import { supabase } from '../../lib/supabase';
 
 interface Stats {
   categories: number;
+  subcategories: number;
   products: number;
   featuredProducts: number;
 }
 
 export default function AdminDashboard() {
-  const [stats, setStats] = useState<Stats>({ categories: 0, products: 0, featuredProducts: 0 });
+  const [stats, setStats] = useState<Stats>({ categories: 0, subcategories: 0, products: 0, featuredProducts: 0 });
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -23,8 +24,14 @@ export default function AdminDashboard() {
           supabase.from('products').select('id', { count: 'exact', head: true }).eq('featured', true),
         ]);
 
+        let subcategoriesCount = 0;
+        const subRes = await supabase.from('subcategories').select('id', { count: 'exact', head: true });
+        if (!subRes.error) subcategoriesCount = subRes.count ?? 0;
+        // If subcategories table doesn't exist yet (migration not run), error is set and count stays 0
+
         setStats({
           categories: categoriesResult.count || 0,
+          subcategories: subcategoriesCount,
           products: productsResult.count || 0,
           featuredProducts: featuredResult.count || 0,
         });
@@ -39,27 +46,10 @@ export default function AdminDashboard() {
   }, []);
 
   const statCards = [
-    {
-      title: 'Categories',
-      value: stats.categories,
-      icon: FolderOpen,
-      color: 'from-primary-500 to-primary-600',
-      link: '/admin/categories',
-    },
-    {
-      title: 'Products',
-      value: stats.products,
-      icon: Package,
-      color: 'from-secondary-500 to-secondary-600',
-      link: '/admin/products',
-    },
-    {
-      title: 'Featured Products',
-      value: stats.featuredProducts,
-      icon: Package,
-      color: 'from-accent-500 to-accent-600',
-      link: '/admin/products',
-    },
+    { title: 'Categories', value: stats.categories, icon: FolderOpen, color: 'from-primary-500 to-primary-600', link: '/admin/categories' },
+    { title: 'Subcategories', value: stats.subcategories, icon: Layers, color: 'from-purple-500 to-purple-600', link: '/admin/subcategories' },
+    { title: 'Products', value: stats.products, icon: Package, color: 'from-secondary-500 to-secondary-600', link: '/admin/products' },
+    { title: 'Featured Products', value: stats.featuredProducts, icon: Package, color: 'from-accent-500 to-accent-600', link: '/admin/products' },
   ];
 
   if (loading) {
@@ -78,7 +68,7 @@ export default function AdminDashboard() {
       </div>
 
       {/* Stats Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
         {statCards.map((stat, index) => (
           <motion.div
             key={stat.title}
@@ -106,7 +96,7 @@ export default function AdminDashboard() {
       {/* Quick Actions */}
       <div className="bg-white rounded-2xl p-6 border border-gray-100">
         <h2 className="text-lg font-semibold text-gray-900 mb-4">Quick Actions</h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
           <Link
             to="/admin/categories/new"
             className="flex items-center gap-3 p-4 bg-primary-50 hover:bg-primary-100 rounded-xl transition-colors"
@@ -116,7 +106,19 @@ export default function AdminDashboard() {
             </div>
             <div>
               <p className="font-semibold text-gray-900">Add Category</p>
-              <p className="text-sm text-gray-500">Create a new product category</p>
+              <p className="text-sm text-gray-500">Create a new category</p>
+            </div>
+          </Link>
+          <Link
+            to="/admin/subcategories/new"
+            className="flex items-center gap-3 p-4 bg-purple-50 hover:bg-purple-100 rounded-xl transition-colors"
+          >
+            <div className="p-2 bg-purple-500 rounded-lg">
+              <Plus className="w-5 h-5 text-white" />
+            </div>
+            <div>
+              <p className="font-semibold text-gray-900">Add Subcategory</p>
+              <p className="text-sm text-gray-500">Under a category</p>
             </div>
           </Link>
           <Link

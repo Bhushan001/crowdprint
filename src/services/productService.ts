@@ -65,6 +65,37 @@ export const productService = {
   },
 
   /**
+   * Fetch products by subcategory
+   */
+  async getBySubcategory(subcategoryId: string): Promise<Product[]> {
+    const { data, error } = await supabase
+      .from('products')
+      .select(`
+        *,
+        product_images (
+          id,
+          image_url,
+          cloudinary_public_id,
+          order
+        )
+      `)
+      .eq('subcategory_id', subcategoryId)
+      .order('order', { ascending: true });
+
+    if (error) {
+      console.error('Error fetching products by subcategory:', error);
+      throw error;
+    }
+
+    return (data || []).map(product => ({
+      ...product,
+      images: product.product_images
+        ?.sort((a: any, b: any) => a.order - b.order)
+        .map((img: any) => img.image_url) || [],
+    }));
+  },
+
+  /**
    * Fetch a single product by slug
    */
   async getBySlug(slug: string): Promise<Product | null> {
