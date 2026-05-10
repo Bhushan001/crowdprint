@@ -1,0 +1,98 @@
+@import "tailwindcss";
+
+@theme {
+  --font-display: "Syne", sans-serif;
+  --font-body: "DM Sans", sans-serif;
+
+  --color-orange: #E85A2A;
+  --color-orange-dark: #C44A1E;
+  --color-teal: #3BB8CC;
+  --color-teal-light: #E8F8FB;
+  --color-ink: #0D1B1B;
+  --color-ink-light: #152828;
+  --color-cream: #F7F4EF;
+  --color-white: #FFFFFF;
+  --color-gray: #6B7280;
+  --color-gray-light: #F3F4F6;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-body);
+  color: var(--color-ink);
+  background: var(--color-white);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--font-display);
+  line-height: 1.1;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+#root {
+  width: 100%;
+  min-height: 100svh;
+}
+
+/* Marquee animation */
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+.marquee-track {
+  display: flex;
+  width: max-content;
+  animation: marquee 30s linear infinite;
+  will-change: transform;
+}
+
+.marquee-track:hover {
+  animation-play-state: paused;
+}
+
+/* Responsive grid helpers */
+@media (max-width: 640px) {
+  .products-grid {
+    grid-template-columns: 1fr !important;
+  }
+  .features-grid {
+    grid-template-columns: 1fr !important;
+  }
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 2rem !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .enquiry-cards {
+    flex-direction: column !important;
+    align-items: center !important;
+  }
+  .enquiry-cards > a {
+    max-width: 100% !important;
+    width: 100% !important;
+  }
+}
+
