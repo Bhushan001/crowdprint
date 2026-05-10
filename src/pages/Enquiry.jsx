@@ -236,7 +236,7 @@ export default function Enquiry() {
             title="Send an Email"
             body="Prefer email? Drop us a detailed message with your requirements and we'll get back to you within 24 hours."
             buttonLabel="Send Email"
-            href="mailto:?subject=Product%20Enquiry%20%E2%80%94%20CrowdPrints&body=Hi%20CrowdPrints%20Team%2C%0A%0AI%20would%20like%20to%20enquire%20about%20your%20products.%0A%0APlease%20share%20more%20details."
+            href="mailto:crowdprints.connect@gmail.com?subject=Product%20Enquiry%20%E2%80%94%20CrowdPrints&body=Hi%20CrowdPrints%20Team%2C%0A%0AI%20would%20like%20to%20enquire%20about%20your%20products.%0A%0APlease%20share%20more%20details."
             accentColor="var(--color-orange)"
           />
         </div>

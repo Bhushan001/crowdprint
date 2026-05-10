@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { Menu, X } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
+import { asset } from '../utils/asset'
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false)
@@ -50,7 +51,7 @@ export default function Navbar() {
           {/* Logo */}
           <Link to="/">
             <img
-              src="/images/logo.png"
+              src={asset('images/logo.png')}
               alt="CrowdPrints"
               style={{ height: 44, width: 'auto' }}
             />

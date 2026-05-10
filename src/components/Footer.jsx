@@ -1,5 +1,5 @@
-import { Link } from 'react-router-dom'
 import { Phone, Globe } from 'lucide-react'
+import { asset } from '../utils/asset'
 
 export default function Footer() {
   return (
@@ -22,7 +22,7 @@ export default function Footer() {
           }}
         >
           <img
-            src="/images/logo.png"
+            src={asset('images/logo.png')}
             alt="CrowdPrints"
             style={{ height: 48, width: 'auto' }}
           />
